@@ -1,4 +1,5 @@
 const { sendResponse } = require("../responses/response");
+const errorResponses = require("../responses/errorResponse"); // Make sure to adjust the path
 const {
   getTodos,
   saveTodo,
@@ -26,7 +27,7 @@ exports.handler = async (event, context) => {
     if (result) {
       return sendResponse(200, "Todo updated");
     } else {
-      return sendResponse(404, "Todo not found");
+      return errorResponses.NotFound; // Return the predefined not found response
     }
   } else if (method === "DELETE" && path === "/todo") {
     // Delete a todo
@@ -35,10 +36,10 @@ exports.handler = async (event, context) => {
     if (result) {
       return sendResponse(200, "Todo deleted");
     } else {
-      return sendResponse(404, "Todo not found");
+      return errorResponses.NotFound; // Return the predefined not found response
     }
   } else {
     // Handle not found
-    return sendResponse(404, { message: "URL not found" });
+    return errorResponses.NotFound; // Return the predefined not found response
   }
 };

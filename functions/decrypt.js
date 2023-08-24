@@ -1,5 +1,6 @@
 const decryptionService = require("../services/decryptionService");
 const { sendResponse } = require("../responses/response");
+const errorResponses = require("../responses/errorResponse");
 
 exports.handler = async (event) => {
   try {
@@ -7,6 +8,6 @@ exports.handler = async (event) => {
     const decryptedText = decryptionService.decrypt(encryptedText);
     return sendResponse(200, { decryptedText });
   } catch (error) {
-    return sendResponse(500, { error: error.message });
+    return errorResponses.InternalServerError;
   }
 };
