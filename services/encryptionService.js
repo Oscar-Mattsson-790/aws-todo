@@ -1,12 +1,20 @@
-function encrypt(text) {
-  const shift = 1;
+const shift = 3;
+
+const endcrypt = (text) => {
   return text
     .split("")
-    .map((char) => {
-      const code = char.charCodeAt(0);
-      return String.fromCharCode(code + shift);
-    })
+    .map((char) => String.fromCharCode(char.charCodeAt(0) + shift))
     .join("");
-}
+};
 
-module.exports = { encrypt };
+const decrypt = (cipher) => {
+  return cipher
+    .split("")
+    .map((char) => String.fromCharCode(char.charCodeAt(0) - shift))
+    .join("");
+};
+
+module.exports = {
+  endcrypt,
+  decrypt,
+};

@@ -1,7 +1,5 @@
-const todoFunction = require("./functions/todo");
-const encryptFunction = require("./functions/encrypt");
-const decryptFunction = require("./functions/decrypt");
+const todoHandler = require("./functions/todoHandler");
+const encryptionHandler = require("./functions/encryptionHandler");
 
-exports.todo = todoFunction.handler;
-exports.encrypt = encryptFunction.handler;
-exports.decrypt = decryptFunction.handler;
+exports.todoHandler = todoHandler.handler;
+exports.encryptionHandler = encryptionHandler.handler;
