@@ -7,9 +7,11 @@ const addTodo = (newTodo) => {
   return newTodo;
 };
 
-const updateTodo = (updatedTodo) => {
-  todos = todos.map((todo) => (todo.id === updatedTodo.id ? updateTodo : todo));
-  return updateTodo;
+const updateTodo = (newTodoData) => {
+  todos = todos.map((todo) =>
+    todo.id === newTodoData.id ? newTodoData : todo
+  );
+  return newTodoData;
 };
 
 const deleteTodo = ({ id }) => {

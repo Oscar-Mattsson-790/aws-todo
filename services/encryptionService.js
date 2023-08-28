@@ -1,6 +1,6 @@
 const shift = 3;
 
-const endcrypt = (text) => {
+const encrypt = (text) => {
   return text
     .split("")
     .map((char) => String.fromCharCode(char.charCodeAt(0) + shift))
@@ -15,6 +15,6 @@ const decrypt = (cipher) => {
 };
 
 module.exports = {
-  endcrypt,
+  encrypt,
   decrypt,
 };

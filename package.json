@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "deploy": "zip aws-todo.zip index.js functions/** responses/** services/** && aws lambda update-function-code --function-name todo-api --zip-file fileb://aws-todo.zip"
+    "deploy": "zip aws-todo.zip index.js functions/** responses/** services/** && aws lambda update-function-code --function-name encrypt-api --zip-file fileb://aws-todo.zip"
   },
   "keywords": [],
   "author": "",
