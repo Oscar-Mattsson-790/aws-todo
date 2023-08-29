@@ -10,6 +10,7 @@ exports.handler = async (event, context) => {
   console.log(event);
 
   const { method, path } = event.requestContext.http;
+  const id = event.pathParameters ? event.pathParameters.id : null; // Fetching the ID if it exists
 
   try {
     if (method === "GET" && path === "/todos") {
@@ -21,14 +22,14 @@ exports.handler = async (event, context) => {
       return sendResponse(200, await addTodo(body));
     }
 
-    if (method === "PUT" && path === "/todo") {
+    if (method === "PUT" && id) {
       const body = JSON.parse(event.body);
+      body.id = id;
       return sendResponse(200, await updateTodo(body));
     }
 
-    if (method === "DELETE" && path === "/todo") {
-      const body = JSON.parse(event.body);
-      return sendResponse(200, await deleteTodo(body));
+    if (method === "DELETE" && id) {
+      return sendResponse(200, await deleteTodo({ id }));
     }
 
     return sendResponse(404, { message: "URL not found" });
