@@ -9,19 +9,25 @@ let todos = [
   },
 ];
 
+const generateId = () => Date.now().toString();
+
 const getAllTodos = () => {
-  if (!todos.length) {
-    throw new Error("No todos available.");
-  }
   return todos;
 };
 
 const addTodo = (newTodo) => {
-  todos.push(newTodo);
-  return newTodo;
+  const todoWithId = { ...newTodo, id: generateId() };
+  todos.push(todoWithId);
+  return todoWithId;
 };
 
 const updateTodo = (newTodoData) => {
+  const todoExists = todos.some((todo) => todo.id === newTodoData.id);
+
+  if (!todoExists) {
+    throw new Error("Todo not found.");
+  }
+
   todos = todos.map((todo) =>
     todo.id === newTodoData.id ? newTodoData : todo
   );
@@ -29,6 +35,12 @@ const updateTodo = (newTodoData) => {
 };
 
 const deleteTodo = ({ id }) => {
+  const todoExists = todos.some((todo) => todo.id === id);
+
+  if (!todoExists) {
+    throw new Error("Todo not found.");
+  }
+
   todos = todos.filter((todo) => todo.id !== id);
   return { message: "Todo deleted successfully" };
 };
