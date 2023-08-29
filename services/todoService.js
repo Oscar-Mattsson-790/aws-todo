@@ -1,4 +1,13 @@
-let todos = [];
+let todos = [
+  {
+    id: "1",
+    task: "Test the API",
+  },
+  {
+    id: "2",
+    task: "Create a function",
+  },
+];
 
 const getAllTodos = () => todos;
 
