@@ -9,7 +9,12 @@ let todos = [
   },
 ];
 
-const getAllTodos = () => todos;
+const getAllTodos = () => {
+  if (!todos.length) {
+    throw new Error("No todos available.");
+  }
+  return todos;
+};
 
 const addTodo = (newTodo) => {
   todos.push(newTodo);
