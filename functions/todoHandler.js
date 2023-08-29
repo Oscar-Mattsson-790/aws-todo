@@ -1,4 +1,4 @@
-const { successResponse, errorResponse } = require("../responses/apiResponses");
+const { sendResponse } = require("../responses/apiResponses");
 const {
   getAllTodos,
   addTodo,
@@ -6,21 +6,27 @@ const {
   deleteTodo,
 } = require("../services/todoService");
 
-exports.handler = async (event) => {
+exports.handler = async (event, context) => {
+  console.log(event);
+  const method = event.httpMethod;
+  const path = event.resource;
+
   try {
-    switch (event.httpMethod) {
-      case "GET":
-        return successResponse(await getAllTodos());
-      case "POST":
-        return successResponse(await addTodo(JSON.parse(event.body)));
-      case "PUT":
-        return successResponse(await updateTodo(JSON.parse(event.body)));
-      case "DELETE":
-        return successResponse(await deleteTodo(JSON.parse(event.body)));
-      default:
-        return errorResponse(400, "Invalid method");
+    if (method === "GET" && path === "/todos") {
+      return sendResponse(200, await getAllTodos());
+    } else if (method === "POST" && path === "/todo") {
+      const body = JSON.parse(event.body);
+      return sendResponse(200, await addTodo(body));
+    } else if (method === "PUT" && path === "/todo") {
+      const body = JSON.parse(event.body);
+      return sendResponse(200, await updateTodo(body));
+    } else if (method === "DELETE" && path === "/todo") {
+      const body = JSON.parse(event.body);
+      return sendResponse(200, await deleteTodo(body));
+    } else {
+      return sendResponse(404, { message: "URL not found" });
     }
   } catch (error) {
-    return errorResponse(500, error.message);
+    return sendResponse(500, { message: error.message });
   }
 };
